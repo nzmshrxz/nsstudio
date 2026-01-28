@@ -1,12 +1,17 @@
 import React from 'react';
 import { Project } from '../types';
+import foodieMock from '../assets/foodiemock.png';
+import bulletinMock from '../assets/bulletinmock.png';
+import foreverMock from '../assets/forevermock.png';
+import ppfMock from '../assets/ppfmock.png';
+
 
 const projects: Project[] = [
 	{
 		id: '1',
 		title: 'Foodie',
 		category: 'Full-Stack Engineering',
-		image: '/assets/foodiemock.png',
+		image: foodieMock,
 		description: 'High-performance control systems for aerospace interfaces.',
 		link: 'https://foodiepiee.netlify.app/', // Added link property
 	},
@@ -14,7 +19,7 @@ const projects: Project[] = [
 		id: '2',
 		title: 'Bulletin',
 		category: 'Brand Architecture',
-		image: '/assets/bulletinmock.png',
+		image:bulletinMock,
 		description: 'Minimalist visual language for an international finance collective.',
 		link: 'https://bulletin-news-4s4o.vercel.app/', // Added link property
 	},
@@ -22,7 +27,7 @@ const projects: Project[] = [
 		id: '3',
 		title: 'Forever',
 		category: 'Strategic Identity',
-		image: '/assets/forevermock.png',
+		image: foreverMock,
 		description: 'Deep optimization of authority and authority in the technical space.',
 		link: 'https://foreverbynazam.netlify.app/', // Added link property
 	},
@@ -30,7 +35,7 @@ const projects: Project[] = [
 		id: '4',
 		title: 'Portfolio',
 		category: 'AI Integration',
-		image: '/assets/ppfmock.png',
+		image: ppfMock,
 		description: 'Scaling a vision from concept to market-leading digital platform.',
 		link: 'https://nazamshiraz.vercel.app/', // Added link property
 	},
