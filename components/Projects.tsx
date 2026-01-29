@@ -4,6 +4,7 @@ import foodieMock from '../assets/foodiemock.png';
 import bulletinMock from '../assets/bulletinmock.png';
 import foreverMock from '../assets/forevermock.png';
 import ppfMock from '../assets/ppfmock.png';
+import aethelandco from '../assets/aethelandco.png'
 
 
 const projects: Project[] = [
@@ -38,6 +39,14 @@ const projects: Project[] = [
 		image: ppfMock,
 		description: 'Scaling a vision from concept to market-leading digital platform.',
 		link: 'https://nazamshiraz.vercel.app/', // Added link property
+	},
+	{
+		id: '5',
+		title: 'Athel & Co',
+		category: 'Interrior and architect',
+		image: aethelandco,
+		description: 'Scaling a vision from concept to market-leading digital platform.',
+		link: 'https://athelandco.vercel.app/', // Added link property
 	},
 ];
 
