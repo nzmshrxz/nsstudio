@@ -5,6 +5,7 @@ import bulletinMock from '../assets/bulletinmock.png';
 import foreverMock from '../assets/forevermock.png';
 import ppfMock from '../assets/ppfmock.png';
 import aethelandco from '../assets/aethelandco.png'
+import aurafitness from '../assets/aurafitness.png'
 
 
 const projects: Project[] = [
@@ -47,6 +48,14 @@ const projects: Project[] = [
 		image: aethelandco,
 		description: 'Scaling a vision from concept to market-leading digital platform.',
 		link: 'https://athelandco.vercel.app/', // Added link property
+	},
+	{
+		id: '6',
+		title: 'Aura Fitness',
+		category: 'Gym',
+		image: aurafitness,
+		description: 'Scaling a vision from concept to market-leading digital platform.',
+		link: 'https://aurafitness-two.vercel.app/', // Added link property
 	},
 ];
 
