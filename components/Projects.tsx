@@ -6,6 +6,7 @@ import foreverMock from '../assets/forevermock.png';
 import ppfMock from '../assets/ppfmock.png';
 import aethelandco from '../assets/aethelandco.png'
 import aurafitness from '../assets/aurafitness.png'
+import { ChevronUp } from 'lucide-react';
 
 
 const projects: Project[] = [

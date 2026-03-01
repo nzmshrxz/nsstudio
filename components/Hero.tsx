@@ -60,7 +60,6 @@ const Hero: React.FC = () => {
         {/* Ambient Depth */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
       </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center mb-20">
         <div className="inline-block mb-8 px-5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-2xl">
           <span className="text-[12px] font-mono tracking-[0.5em] text-zinc-500 uppercase">
