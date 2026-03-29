@@ -1,132 +1,229 @@
-
 import React, { useState, useEffect } from 'react';
 import { Check } from 'lucide-react';
-import { PricingPlan } from '../types';
 
-const plans: PricingPlan[] = [
-  { 
-    id: 'basic', 
-    name: 'Standard', 
-    price: '199k', 
-    description: 'Perfect for small businesses looking to establish their digital presence', 
-    features: ['Frontend Development', 'Mobile Responsive', 'Basic SEO Setup', 'Contact Forms','3 Revisions','30 Days Support', "Cross-Browser Compatibility", 'Basic Performance Optimization'] 
+interface PricingPlan {
+  id: string;
+  name: string;
+  price: number | 'Custom';
+  description: string;
+  features: string[];
+  recommended?: boolean;
+}
+
+const devPlans: PricingPlan[] = [
+  {
+    id: 'standard',
+    name: 'Standard',
+    price: 199,
+    description: 'A clean, fast website built from scratch. Great for founders who need a solid online presence without the fluff.',
+    features: [
+      'Frontend development',
+      'Mobile responsive',
+      'Basic SEO setup',
+      'Contact form',
+      '3 revisions',
+      '30 days support',
+      'Cross-browser compatibility',
+      'Basic performance optimization',
+    ],
   },
-  { 
-    id: 'pro', 
-    name: 'Advanced', 
-    price: '499', 
-    description: 'Ideal for growing businesses that need advanced functionality', 
-    features: ['Everything in Standard', 'Advanced Animations', 'CMS Integration', 'E-commerce Ready','Analytics Setup', 'Unlimited Revisions', '90 Days Support', 'Performance Optimization'], 
-    recommended: true 
+  {
+    id: 'advanced',
+    name: 'Advanced',
+    price: 499,
+    description: 'For founders building something real — with animations, CMS, and e-commerce ready out of the box.',
+    features: [
+      'Everything in Standard',
+      'Advanced animations',
+      'CMS integration',
+      'E-commerce ready',
+      'Analytics setup',
+      'Unlimited revisions',
+      '90 days support',
+      'Performance optimization',
+    ],
+    recommended: true,
   },
-  { 
-    id: 'enterprise', 
-    name: 'Elite', 
-    price: 'Custom', 
-    description: 'For large-scale projects requiring custom solutions and ongoing support', 
-    features: ['Everything in Advanced', 'Custom Backend Development', 'Third-party Integrations', 'Advanced Security', 'Multi-language Support','Dedicated Project Manager','Priority Support','6 Months Maintenance'] 
+  {
+    id: 'elite',
+    name: 'Elite',
+    price: 'Custom',
+    description: 'Complex SaaS, custom backend, third-party integrations — scoped and priced around your specific project.',
+    features: [
+      'Everything in Advanced',
+      'Custom backend development',
+      'Third-party integrations',
+      'Advanced security',
+      'Multi-language support',
+      'Dedicated project manager',
+      'Priority support',
+      '6 months maintenance',
+    ],
   },
 ];
 
+// Design+Dev adds flat amounts on top
+const DESIGN_ADDON: Record<string, number> = {
+  standard: 100,
+  advanced: 200,
+  elite: 0, // custom anyway
+};
+
+const DESIGN_EXTRA_FEATURES = ['UI/UX design', 'Brand identity kit'];
+
 const Pricing: React.FC = () => {
-  const [serviceMode, setServiceMode] = useState<'dev' | 'full'>('full');
+  const [mode, setMode] = useState<'dev' | 'full'>('dev');
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Trigger animation effect on toggle
   useEffect(() => {
     setIsAnimating(true);
-    const timer = setTimeout(() => setIsAnimating(false), 400);
-    return () => clearTimeout(timer);
-  }, [serviceMode]);
+    const t = setTimeout(() => setIsAnimating(false), 350);
+    return () => clearTimeout(t);
+  }, [mode]);
 
-  const getPrice = (plan: PricingPlan) => {
+  const getPrice = (plan: PricingPlan): string => {
     if (plan.price === 'Custom') return 'Custom';
-    const basePrice = parseFloat(plan.price);
-    const finalPrice = serviceMode === 'full' ? basePrice * 1.50 : basePrice;
-    return `$${finalPrice.toFixed(1)}`;
+    const total = mode === 'full'
+      ? plan.price + DESIGN_ADDON[plan.id]
+      : plan.price;
+    return `$${total}`;
   };
 
-  const getFeatures = (features: string[]) => {
-    if (serviceMode === 'full') {
-      return [...features, 'Premium UI/UX Design', 'Brand Identity Kit'];
-    }
-    return features;
-  };
+  const getFeatures = (plan: PricingPlan): string[] =>
+    mode === 'full' && plan.price !== 'Custom'
+      ? [...plan.features, ...DESIGN_EXTRA_FEATURES]
+      : plan.features;
 
   return (
     <section id="pricing" className="py-24 md:py-40 bg-black">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
-          <span className="text-[10px] font-mono tracking-[0.4em] text-zinc-500 uppercase block mb-6">Investment Structure</span>
-          <h2 className="text-4xl md:text-7xl font-display font-black text-white leading-none tracking-tighter mb-10">
-            Transparent Pricing. <br /><span className="text-zinc-800">Elite Results.</span>
+
+        {/* Header */}
+        <div className="text-center mb-16 md:mb-20">
+          <span className="text-[10px] font-mono tracking-[0.4em] text-zinc-600 uppercase block mb-6">
+            Pricing
+          </span>
+          <h2 className="text-4xl md:text-6xl font-black text-white leading-[0.95] tracking-tighter mb-10">
+            Simple pricing.<br />
+            <span className="text-zinc-600">No surprises.</span>
           </h2>
 
-          <div className="max-w-sm mx-auto p-1 bg-white/5 border border-white/10 rounded-2xl flex items-center">
-            <button 
-              onClick={() => setServiceMode('dev')}
-              className={`flex-1 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all duration-300 ${serviceMode === 'dev' ? 'bg-white text-black shadow-xl' : 'text-zinc-500 hover:text-white'}`}
-            >
-              Development
-            </button>
-            <button 
-              onClick={() => setServiceMode('full')}
-              className={`flex-1 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all duration-300 ${serviceMode === 'full' ? 'bg-white text-black shadow-xl' : 'text-zinc-500 hover:text-white'}`}
-            >
-              Design + Dev
-            </button>
+          {/* Toggle */}
+          <div className="inline-flex flex-col items-center gap-3">
+            <div className="inline-flex p-1 bg-white/[0.04] border border-white/[0.07] rounded-xl">
+              <button
+                onClick={() => setMode('dev')}
+                className={`px-6 py-3 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all duration-250 ${
+                  mode === 'dev'
+                    ? 'bg-white text-black'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                Dev only
+              </button>
+              <button
+                onClick={() => setMode('full')}
+                className={`px-6 py-3 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all duration-250 ${
+                  mode === 'full'
+                    ? 'bg-white text-black'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                Design + Dev
+              </button>
+            </div>
+            <p className="text-sm text-zinc-500 font-light">
+              {mode === 'full'
+                ? 'Includes UI/UX design & brand kit'
+                : 'Development only — bring your own design'}
+            </p>
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-1 bg-white/5 border border-white/5">
-          {plans.map((plan) => (
+        {/* Plans grid */}
+        <div className="grid lg:grid-cols-3 gap-px bg-white/[0.05]">
+          {devPlans.map((plan) => (
             <div
               key={plan.id}
-              className={`relative p-12 transition-all duration-500 hover:bg-zinc-900/40 ${
-                plan.recommended ? 'bg-[#050505]' : 'bg-black'
+              className={`relative flex flex-col p-10 transition-colors duration-300 hover:bg-zinc-950 ${
+                plan.recommended ? 'bg-[#060606]' : 'bg-black'
               }`}
             >
+              {/* Recommended badge */}
               {plan.recommended && (
-                <div className="absolute top-0 right-0 p-4">
-                  <span className="text-[8px] font-mono font-black uppercase tracking-widest text-zinc-700">Recommended</span>
+                <div className="absolute top-5 right-5">
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-600 border border-white/[0.07] px-2.5 py-1 rounded-full">
+                    Most popular
+                  </span>
                 </div>
               )}
-              
-              <div className={`mb-12 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                <h3 className="text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-500 mb-6">{plan.name}</h3>
-                <div className="text-5xl md:text-6xl font-display font-black mb-4 tracking-tighter">{getPrice(plan)}</div>
-                <p className="text-zinc-500 text-sm font-light leading-relaxed max-w-[250px]">
+
+              {/* Price block */}
+              <div
+                className={`mb-10 transition-all duration-350 ${
+                  isAnimating ? 'opacity-0 -translate-y-1' : 'opacity-100 translate-y-0'
+                }`}
+              >
+                <h3 className="text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-600 mb-5">
+                  {plan.name}
+                </h3>
+                <div className="text-5xl md:text-6xl font-black text-white tracking-tighter mb-1 leading-none">
+                  {getPrice(plan)}
+                </div>
+                {plan.price !== 'Custom' && (
+                  <p className="text-[11px] text-zinc-700 font-mono mb-5">
+                    {mode === 'full' ? `$${plan.price} dev + $${DESIGN_ADDON[plan.id]} design` : 'development only'}
+                  </p>
+                )}
+                <p className="text-[15px] text-zinc-400 font-normal leading-relaxed max-w-[260px]">
                   {plan.description}
                 </p>
               </div>
 
-              <div className={`space-y-4 mb-16 min-h-[200px] transition-all duration-500 delay-75 ${isAnimating ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'}`}>
-                {getFeatures(plan.features).map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <Check size={12} className="text-zinc-600" />
-                    <span className="text-sm text-zinc-400 font-medium tracking-tight">{feature}</span>
+              {/* Features */}
+              <div
+                className={`flex-1 space-y-3.5 mb-10 transition-all duration-350 delay-75 ${
+                  isAnimating ? 'opacity-0 translate-x-1' : 'opacity-100 translate-x-0'
+                }`}
+              >
+                {getFeatures(plan).map((feature) => (
+                  <div key={feature} className="flex items-start gap-3">
+                    <Check size={12} className="text-zinc-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-[15px] text-zinc-400 font-normal leading-snug">
+                      {feature}
+                    </span>
                   </div>
                 ))}
               </div>
 
-              <button
-                className={`w-full py-5 text-[10px] font-black uppercase tracking-widest rounded-full transition-all ${
+              {/* CTA */}
+              <a
+                href="#contact"
+                className={`w-full py-4 text-[10px] font-black uppercase tracking-widest rounded-full text-center transition-all duration-200 ${
                   plan.recommended
-                    ? 'bg-white text-black hover:bg-zinc-200'
+                    ? 'bg-white text-black hover:bg-zinc-100'
                     : 'bg-transparent border border-white/10 text-white hover:bg-white/5'
                 }`}
               >
-                Initiate Operation
-              </button>
+                {plan.price === 'Custom' ? 'Get a quote' : 'Start a project'}
+              </a>
             </div>
           ))}
         </div>
-        
-        <div className="mt-16 text-center">
-          <p className="text-[9px] font-mono text-zinc-700 uppercase tracking-widest">
-            * All investment tiers include 30 days of post-deployment support.
+
+        {/* Footer note */}
+        <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-white/[0.05]">
+          <p className="text-[11px] font-mono text-zinc-700">
+            All plans include 30 days post-deployment support.
+          </p>
+          <p className="text-[11px] font-mono text-zinc-700">
+            Need something custom?{' '}
+            <a href="#contact" className="text-zinc-500 hover:text-white transition-colors underline underline-offset-2">
+              Let's talk
+            </a>
           </p>
         </div>
+
       </div>
     </section>
   );

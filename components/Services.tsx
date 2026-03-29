@@ -1,102 +1,142 @@
 import React from 'react';
-import { Code, Megaphone, Palette, Search, Settings, ArrowUpRight } from 'lucide-react';
-import { Service } from '../types';
+import { Globe, Rocket, Layers, Bug, Server, ArrowUpRight } from 'lucide-react';
+
+interface Service {
+  id: string;
+  title: string;
+  tag: string;
+  description: string;
+  bullets: string[];
+  icon: React.ReactNode;
+}
 
 const services: Service[] = [
-	{
-		id: '1',
-		title: 'Web Development',
-		description:
-			'We specialize in building high-performance, scalable, and secure web applications tailored to your business needs. From front-end to back-end, our solutions ensure seamless user experiences and robust functionality.',
-		icon: 'Code',
-	},
-	{
-		id: '2',
-		title: 'Web Design',
-		description:
-			'Our team creates visually stunning and user-friendly designs that captivate and engage your audience. We focus on intuitive layouts, modern aesthetics, and responsive designs to make your brand stand out.',
-		icon: 'Megaphone',
-	},
-	{
-		id: '3',
-		title: 'Maintenance',
-		description:
-			'Keep your systems running smoothly with our proactive monitoring and regular updates. We ensure zero downtime, enhanced security, and optimal performance for your digital assets.',
-		icon: 'Settings',
-	},
-	{
-		id: '4',
-		title: 'Brand Identity',
-		description:
-			'Develop a unique and memorable brand presence that resonates with your target audience. From logos to complete design systems, we craft identities that leave a lasting impression.',
-		icon: 'Palette',
-	},
-	{
-		id: '5',
-		title: 'SEO Optimization',
-		description:
-			'Boost your online visibility and drive organic traffic with our expert SEO services. We focus on keyword research, on-page optimization, and technical SEO to help you rank higher in search results.',
-		icon: 'Search',
-	},
+  {
+    id: '1',
+    title: 'Websites & Landing Pages',
+    tag: 'Fast turnaround',
+    description:
+      'High-converting, production-ready websites built for speed and clarity. Not templates — custom-built to your brand and goals.',
+    bullets: ['Next.js / React', 'Mobile-first', 'SEO-ready out of the box'],
+    icon: <Globe className="w-5 h-5" />,
+  },
+  {
+    id: '2',
+    title: 'MVP Development',
+    tag: 'Idea → shipped',
+    description:
+      'Got an idea and a deadline? We scope, build, and deploy your MVP — fast. No bloat, no feature creep. Just the core that gets you to users.',
+    bullets: ['Scoping & architecture', 'Full-stack build', 'Deployed & handoff-ready'],
+    icon: <Rocket className="w-5 h-5" />,
+  },
+  {
+    id: '3',
+    title: 'SaaS Products',
+    tag: 'End-to-end',
+    description:
+      'From auth to billing to dashboards — we build SaaS products that are ready to scale. Stripe, Supabase, and everything in between.',
+    bullets: ['Auth, billing, roles', 'Admin dashboards', 'API integrations'],
+    icon: <Layers className="w-5 h-5" />,
+  },
+  {
+    id: '4',
+    title: 'Bug Fixes & Rescues',
+    tag: 'On-call',
+    description:
+      'Codebase on fire? App crashing before launch? We step in, diagnose fast, and fix it. No judgment — just results.',
+    bullets: ['Root cause analysis', 'Performance bottlenecks', 'Emergency patches'],
+    icon: <Bug className="w-5 h-5" />,
+  },
+  {
+    id: '5',
+    title: 'Deployment & DevOps',
+    tag: 'Ship it right',
+    description:
+      'CI/CD pipelines, Vercel, Railway, VPS — we handle the infra so you stop worrying about deploys and focus on building.',
+    bullets: ['CI/CD setup', 'Domain & SSL config', 'Monitoring & uptime'],
+    icon: <Server className="w-5 h-5" />,
+  },
 ];
 
-const IconMap: Record<string, React.ReactNode> = {
-	Code: <Code className="w-6 h-6" />,
-	Megaphone: <Megaphone className="w-6 h-6" />,
-	Palette: <Palette className="w-6 h-6" />,
-	Search: <Search className="w-6 h-6" />,
-	Settings: <Settings className="w-6 h-6" />,
-};
-
 const Services: React.FC = () => {
-	return (
-		<section id="services" className="py-24 md:py-40 bg-black">
-			<div className="max-w-7xl mx-auto px-6">
-				<div className="mb-24">
-					<span className="text-[10px] font-mono tracking-[0.4em] text-zinc-500 uppercase block mb-6">
-						Execution Capabilities
-					</span>
-					<h2 className="text-4xl md:text-7xl font-display font-black text-white leading-[0.9] tracking-tighter">
-						Pure Engineering. <br />
-						<span className="text-zinc-700">Zero Compromise.</span>
-					</h2>
-				</div>
+  return (
+    <section id="services" className="py-24 md:py-40 bg-black">
+      <div className="max-w-7xl mx-auto px-6">
 
-				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-1">
-					{services.map((service) => (
-						<div
-							key={service.id}
-							className="group relative p-12 bg-[#050505] border border-white/5 transition-all duration-500 hover:bg-[#0A0A0A] hover:z-10"
-						>
-							<div className="mb-8 text-white group-hover:text-[#E11D48] transition-colors duration-500">
-								{IconMap[service.icon]}
-							</div>
-							<h3 className="text-2xl font-display font-black text-white mb-5 tracking-tighter">
-								{service.title}
-							</h3>
-							<p className="text-zinc-500 leading-relaxed font-light mb-8 text-sm md:text-base">
-								{service.description}
-							</p>
-							<div className="absolute bottom-0 left-0 w-full h-1 bg-[#E11D48] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
-						</div>
-					))}
+        {/* Header */}
+        <div className="mb-20">
+          <span className="text-[10px] font-mono tracking-[0.4em] text-zinc-600 uppercase block mb-6">
+            What we do
+          </span>
+          <h2 className="text-4xl md:text-6xl font-black text-white leading-[0.95] tracking-tighter">
+            From idea to deployed —<br />
+            <span className="text-zinc-600">we handle the whole thing.</span>
+          </h2>
+        </div>
 
-					<div className="p-12 bg-white text-black flex flex-col justify-between items-start group hover:bg-zinc-100 transition-all duration-500">
-						<h3 className="text-3xl font-display font-black leading-tight">
-							Ready to start the operation?
-						</h3>
-						<a
-							href="#contact"
-							className="mt-12 inline-flex items-center gap-2 group/btn px-10 py-4 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-full transition-all"
-						>
-							Initiate Project
-							<ArrowUpRight size={16} />
-						</a>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.05]">
+          {services.map((service) => (
+            <div
+              key={service.id}
+              className="group relative p-10 bg-black transition-colors duration-300 hover:bg-zinc-950"
+            >
+              {/* Icon + tag row */}
+              <div className="flex items-center justify-between mb-8">
+                <div className="text-zinc-500 group-hover:text-white transition-colors duration-300">
+                  {service.icon}
+                </div>
+                <span className="text-[10px] font-mono tracking-widest text-zinc-700 uppercase">
+                  {service.tag}
+                </span>
+              </div>
+
+              <h3 className="text-xl font-black text-white mb-4 tracking-tight leading-snug">
+                {service.title}
+              </h3>
+
+              <p className="text-zinc-400 text-[15px] leading-relaxed mb-6">
+                {service.description}
+              </p>
+
+              {/* Bullets */}
+              <ul className="space-y-1.5">
+                {service.bullets.map((b) => (
+                  <li key={b} className="flex items-center gap-2 text-[11px] font-mono text-zinc-700">
+                    <span className="w-1 h-1 rounded-full bg-zinc-700 flex-shrink-0" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Bottom accent line */}
+              <div className="absolute bottom-0 left-0 w-full h-px bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            </div>
+          ))}
+
+          {/* CTA Card */}
+          <div className="p-10 bg-white text-black flex flex-col justify-between">
+            <div>
+              <p className="text-[10px] font-mono tracking-[0.4em] text-zinc-400 uppercase mb-6">
+                Let's work together
+              </p>
+              <h3 className="text-2xl font-black leading-tight tracking-tight">
+                Not sure what you need? Tell us where you're stuck.
+              </h3>
+            </div>
+            <a
+              href="#contact"
+              className="mt-10 inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-zinc-900 transition-colors duration-300"
+            >
+              Start a project
+              <ArrowUpRight size={14} />
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default Services;

@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="text-[9px] font-mono uppercase tracking-[0.4em] text-zinc-800">
-          © 2024 NS STUDIO //  DIGITAL SOLUTIONS // ALL RIGHTS RESERVED.
+          © 2025 NS STUDIO //  DIGITAL SOLUTIONS // ALL RIGHTS RESERVED.
         </div>
       </div>
     </footer>
