@@ -57,14 +57,14 @@ const Contact: React.FC = () => {
                 <h3 className="text-xl font-black text-white tracking-tight mb-2">
                   Ready to start?
                 </h3>
-                <p className="text-[13px] text-zinc-600 font-medium leading-relaxed">
+                <p className="text-[13px] text-zinc-600 font-light leading-relaxed">
                   Pick whichever works best for you.
                 </p>
               </div>
 
               {/* Primary CTA — audit/review */}
               <button
-                className="w-full group/btn flex items-center justify-between px-8 py-5 bg-white text-black font-black uppercase tracking-widest text-[10px] transition-all duration-200 hover:bg-zinc-100 rounded-sm"
+                className="w-full group/btn flex flex-col sm:flex-row items-center sm:justify-between gap-1 sm:gap-0 px-8 py-5 bg-white text-black font-black uppercase tracking-widest text-[10px] transition-all duration-200 hover:bg-zinc-100 rounded-sm"
                 onClick={() => window.open('https://calendly.com/nazamshiraz4/30min', '_blank')}
               >
                 <span className="flex items-center gap-3">
